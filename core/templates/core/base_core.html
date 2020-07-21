@@ -1,0 +1,46 @@
+{% load static %}
+{% load book_tags %}
+<html>
+   {% include 'blog/base.html' %}
+   <body>
+      <!------ NavigationBar-->
+      <!------ Main Container Starts Here-->
+      <div class="content container-fluid">
+         <div class="row">
+                     <!------01 SideBar Starts Here-->
+            {% include 'blog/left_sidebar.html' %}
+<div class="collapse navbar-collapse" id="navbarNav">
+                                            <h1>Books</h1>
+                                            <h4>This is my books. I've uploaded {% total_book %} books so far</h4>
+                                            <h3>Latest books</h3>
+                                          <h4>{% show_latest_books 2 %}</h4>
+                                            <h3>Most reviewed books</h3>
+                                            {% get_most_commented_posts as	most_commented_posts	%}
+                                            <ul> {%	for	book in	most_commented_posts	%}
+                                            <a	href="{% url 'book_detail' pk=book.pk %}">
+
+                                                <h4>{{forloop.counter}}.{{ book.title	}}</h4>
+                                            </a>
+                                {%	endfor	%}
+                            </ul>
+                            </div>
+
+</nav>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-md-12">
+        <div class="card mb-4">
+
+          <div class="card-body">
+            {% block content %}
+
+            {% endblock %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

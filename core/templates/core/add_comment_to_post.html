@@ -1,0 +1,12 @@
+{% extends 'core/base_core.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>Review</h1>
+    <h2><form method="POST" class="form-post">{% csrf_token %}
+        {{ form.as_p}}
+         <button type="submit" class="save btn btn-default">Send</button>
+    </form></h2>
+
+
+{% endblock %}

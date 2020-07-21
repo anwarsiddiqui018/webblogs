@@ -1,0 +1,30 @@
+{% extends 'core/base_core.html' %}
+{% block content %}
+<div>
+    <h2>{{ books.title }}</h2>
+    <h4>Author: {{ books.author }}</h4>
+    <h5>Category: {{ books.category }}</h5>
+    <strong>Published Date: {{ books.published_date  }}</strong>
+    <p>Views: {{ books.views }}</p>
+    <p><a href="{{ books.pdf.url }}" class="btn btn-primary btn-sm" target="_blank">Download</a></p>
+
+</div>
+<hr>
+<a class="btn btn-default" href="{% url 'add_comment_to_post' pk=books.pk %}">Add Review</a>
+{% for comment in books.comments.all %}
+    <div class="comment">
+        <div class="date">{{ comment.created_date }}</div>
+
+        <h4>{{ comment.author }}</h4>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+
+{% empty %}
+    <p>No Reviews here yet :(</p>
+
+{% endfor %}
+ </div>
+
+            </div></div>
+
+{% endblock %}

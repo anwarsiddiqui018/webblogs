@@ -1,0 +1,10 @@
+<ul>
+    {% for book in latest_books %}
+
+        <a href="{% url 'book_detail' pk=book.pk %}">
+            {{forloop.counter}}.
+            {{book.title}}
+        </a>
+
+    {% endfor %}
+</ul>

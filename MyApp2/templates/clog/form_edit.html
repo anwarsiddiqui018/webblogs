@@ -1,0 +1,11 @@
+{% extends 'clog/base2.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2>New form</h2>
+    <form method="POST"  action="/form/" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form1|crispy}}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}

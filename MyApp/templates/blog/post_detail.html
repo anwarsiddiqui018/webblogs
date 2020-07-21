@@ -1,0 +1,61 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="post">
+        <div class="post">
+                {% if post.image %}
+                    <img src="{{ post.image.url}}" style="width: 500px" >
+                {% else %}
+                       <span class="text-muted">No image</span>
+                {% endif %}
+
+        {% if post.published_date %}
+            <div class="date">
+
+                <a class="mr-4" href="#">{{ post.author }}</a>
+                <small class="text-muted"> {{ post.published_date |date:"F d, Y" }}</small>
+                <p>views: {{ post.views }}</p>
+            </div>
+            </div>
+                {% else %}
+                    <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
+        {% endif %}
+
+        <a class="btn btn-primary" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil">Edit</span></a>
+        <a class="btn btn-danger" href="{% url 'post_remove' pk=post.pk %}"><span class="glyphicon glyphicon-remove">Delete</span></a>
+        <br><br>
+        <h1>{{ post.title | safe}}</h1>
+        <br>
+        <h3>{{ post.text|safe|linebreaksbr }}</h3>
+
+
+        <h2>Similar posts: </h2>
+        {% for post in similar_posts %}
+        <h4>
+            <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
+        </h4>
+        {% empty %}
+        	There are no similar posts yet.
+        {% endfor %}
+    </div>
+<hr>
+
+
+
+
+<a class="btn btn-info" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+{% for comment in post.comments.all %}
+
+    <div class="comment">
+        <div class="date">
+            {{ comment.created_date }}
+        </div>
+        <h3>{{ comment.text|linebreaks }}</h3>
+        <h4>by: <b>{{ comment.author }}</b>  </h4>
+    </div>
+
+{% empty %}
+    <p>No comments here yet :(</p>
+{% endfor %}
+
+{% endblock %}
